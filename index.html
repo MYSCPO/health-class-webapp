@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>보건 수업: 감염병 예방과 면역</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icon CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Jua & Gowun Dodum -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Gowun Dodum', sans-serif; }
+    .font-jua { font-family: 'Jua', sans-serif; }
+  </style>
+</head>
+<body class="bg-indigo-50 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+
+  <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-indigo-100">
+   
+    <!-- 헤더 영역 -->
+    <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 p-6 text-white text-center relative">
+      <span class="inline-block bg-indigo-500 text-indigo-100 text-xs px-3 py-1 rounded-full font-semibold mb-2">보건과 탐구 학습</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight font-jua">🦠 감염병 예방과 면역</h1>
+      <p class="text-indigo-200 text-base mt-1">지구 환경 변화와 면역력, 그리고 우리의 실천 방안</p>
+    </div>
+
+
+    <!-- 폼 시작 -->
+    <form id="activityForm" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
+     
+      <!-- 0. 기본 정보 (학번 / 이름) -->
+      <section class="bg-indigo-50/50 p-5 rounded-xl border border-indigo-100 space-y-4">
+        <h2 class="text-xl font-bold text-indigo-900 flex items-center gap-2 font-jua">
+          <i class="fa-solid fa-user-graduate text-indigo-600"></i> 학생 정보 입력
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">학번 (예: 10101)</label>
+            <input type="text" id="studentId" name="studentId" required placeholder="학번 5자리를 입력하세요"
+                   onchange="fetchStudentName(this.value)"
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">이름</label>
+            <div class="relative">
+              <input type="text" id="studentName" name="studentName" required readonly placeholder="학번 입력 시 자동 조회"
+                     class="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 cursor-not-allowed outline-none">
+              <span id="nameLoading" class="hidden absolute right-3 top-2.5 text-xs text-indigo-600">
+                <i class="fa-solid fa-spinner animate-spin"></i> 확인 중
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- 1. 탐구 활동 -->
+      <section class="space-y-6">
+        <div class="border-b pb-2 border-indigo-200">
+          <h2 class="text-2xl font-bold text-indigo-900 flex items-center gap-2 font-jua">
+            <i class="fa-solid fa-microscope text-indigo-600"></i> [파트 1] 탐구 활동
+          </h2>
+        </div>
+
+
+        <!-- 문항 1 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-bold text-gray-800">
+            [활동 1] 감염병 전파 고리 끊기 수칙 작성
+          </label>
+          <p class="text-xs text-gray-500">
+            * 감염원, 전파 경로(비말, 공기, 접촉 등), 숙주의 면역 상태 중 전파 경로를 차단하거나 예방하기 위한 자신만의 수칙을 서술하세요.
+          </p>
+          <textarea id="act1" name="act1" rows="3" required placeholder="예: 손 씻기를 철저히 하여 접촉 전파를 막고, 마스크 착용으로 비말 전파를 차단한다."
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"></textarea>
+        </div>
+
+
+        <!-- 문항 2-1 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-bold text-gray-800">
+            [활동 2-1] 지구온난화가 감염병 증가에 미치는 영향
+          </label>
+          <p class="text-xs text-gray-500">
+            * 기후변화(온도 상승, 생태계 변화)가 매개곤충(모기, 진드기) 분포 및 감염병 확산에 미치는 영향을 서술하세요.
+          </p>
+          <textarea id="act2_1" name="act2_1" rows="3" required placeholder="예: 지구온난화로 평균 기온이 올라가면 모기 등 매개곤충의 서식지가 확대되고 서식 기간이 늘어나 말라리아, 뎅기열 등 모기 매개 감염병이 증가한다."
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"></textarea>
+        </div>
+
+
+        <!-- 문항 2-2 -->
+        <div class="space-y-2">
+          <label class="block text-sm font-bold text-gray-800">
+            [활동 2-2] 감염병 예방을 위한 일상 속 환경 보호 실천 방안
+          </label>
+          <p class="text-xs text-gray-500">
+            * 기후변화를 늦추고 감염병 위험을 줄이기 위해 생활 속에서 실천할 수 있는 환경 보호 행동을 서술하세요.
+          </p>
+          <textarea id="act2_2" name="act2_2" rows="3" required placeholder="예: 대중교통 이용하기, 일회용품 사용 줄이기, 에너지를 절약하여 탄소 배출 감소시키기"
+                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-sm"></textarea>
+        </div>
+      </section>
+
+
+      <!-- 2. 형성 평가 -->
+      <section class="space-y-6">
+        <div class="border-b pb-2 border-indigo-200">
+          <h2 class="text-2xl font-bold text-indigo-900 flex items-center gap-2 font-jua">
+            <i class="fa-solid fa-pen-to-square text-indigo-600"></i> [파트 2] 형성 평가 (퀴즈)
+          </h2>
+        </div>
+
+
+        <!-- 퀴즈 1 -->
+        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-3">
+          <p class="font-semibold text-gray-800">
+            Q1. 감염병의 전파 경로를 차단하는 방법으로 가장 적절하지 <u class="text-red-500">않은</u> 것은? <span class="text-xs text-indigo-600 font-normal">(33점)</span>
+          </p>
+          <div class="space-y-2 text-sm text-gray-700">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q1" value="1" required class="text-indigo-600 focus:ring-indigo-500">
+              ① 올바른 손 씻기로 접촉 전파 차단
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q1" value="2" class="text-indigo-600 focus:ring-indigo-500">
+              ② 기침 예절 준수로 비말 전파 차단
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer text-indigo-900 font-medium">
+              <input type="radio" name="q1" value="3" class="text-indigo-600 focus:ring-indigo-500">
+              ③ 감염병 유행 시 마스크 착용을 피하고 야외활동 권장
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q1" value="4" class="text-indigo-600 focus:ring-indigo-500">
+              ④ 환기 시스템을 통한 실내 공기 순환 및 소독
+            </label>
+          </div>
+        </div>
+
+
+        <!-- 퀴즈 2 -->
+        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-3">
+          <p class="font-semibold text-gray-800">
+            Q2. 우리 몸의 면역계와 백신(예방접종)에 대한 설명으로 옳은 것은? <span class="text-xs text-indigo-600 font-normal">(33점)</span>
+          </p>
+          <div class="space-y-2 text-sm text-gray-700">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q2" value="1" required class="text-indigo-600 focus:ring-indigo-500">
+              ① 백신은 감염병 치료 목적의 항생제이다.
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer text-indigo-900 font-medium">
+              <input type="radio" name="q2" value="2" class="text-indigo-600 focus:ring-indigo-500">
+              ② 예방접종은 인공적으로 항원 기억을 생성하여 면역을 형성한다.
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q2" value="3" class="text-indigo-600 focus:ring-indigo-500">
+              ③ 건강한 사람은 백신 접종을 받을 필요가 없다.
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q2" value="4" class="text-indigo-600 focus:ring-indigo-500">
+              ④ 모든 감염병은 백신 1회 접종으로 영구 면역이 형성된다.
+            </label>
+          </div>
+        </div>
+
+
+        <!-- 퀴즈 3 -->
+        <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-3">
+          <p class="font-semibold text-gray-800">
+            Q3. 기후변화(지구온난화)가 감염병 양상에 미치는 영향으로 가장 옳은 것은? <span class="text-xs text-indigo-600 font-normal">(34점)</span>
+          </p>
+          <div class="space-y-2 text-sm text-gray-700">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q3" value="1" required class="text-indigo-600 focus:ring-indigo-500">
+              ① 지구 기온이 상승하면 바이러스와 세균의 번식이 억제된다.
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q3" value="2" class="text-indigo-600 focus:ring-indigo-500">
+              ② 모기 매개 감염병(뎅기열, 말라리아)은 온대 지역에서 소멸한다.
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="q3" value="3" class="text-indigo-600 focus:ring-indigo-500">
+              ③ 지구온난화와 감염병의 발생 빈도는 아무런 연관이 없다.
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer text-indigo-900 font-medium">
+              <input type="radio" name="q3" value="4" class="text-indigo-600 focus:ring-indigo-500">
+              ④ 기온 상승으로 매개체 서식지가 확대되어 감염병 위험 지역이 넓어진다.
+            </label>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- 3. 성찰 활동 (배·느·실) -->
+      <section class="space-y-6">
+        <div class="border-b pb-2 border-indigo-200">
+          <h2 class="text-2xl font-bold text-indigo-900 flex items-center gap-2 font-jua">
+            <i class="fa-solid fa-heart-pulse text-indigo-600"></i> [파트 3] 성찰 활동 (배·느·실)
+          </h2>
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-base font-bold text-indigo-900 mb-1 font-jua">🌱 배운 점</label>
+            <textarea id="reflection_learn" name="reflection_learn" rows="3" required placeholder="오늘 수업에서 알게 된 사실"
+                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></textarea>
+          </div>
+          <div>
+            <label class="block text-base font-bold text-indigo-900 mb-1 font-jua">💡 느낀 점</label>
+            <textarea id="reflection_feel" name="reflection_feel" rows="3" required placeholder="수업을 진행하며 느낀 생각"
+                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></textarea>
+          </div>
+          <div>
+            <label class="block text-base font-bold text-indigo-900 mb-1 font-jua">🔥 실천할 점</label>
+            <textarea id="reflection_act" name="reflection_act" rows="3" required placeholder="앞으로 나만의 실천 다짐"
+                      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></textarea>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- 제출 버튼 -->
+      <div class="pt-4">
+        <button type="submit" id="submitBtn"
+                class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold text-xl rounded-xl shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2 cursor-pointer font-jua">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>활동지 및 형성평가 제출하기</span>
+        </button>
+      </div>
+
+
+    </form>
+  </div>
+
+
+  <!-- 모달 / 결과 레이어 알림창 (Modal UI) -->
+  <div id="resultModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-sm w-full text-center space-y-4 shadow-2xl transform transition-all">
+      <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto text-3xl">
+        <i class="fa-solid fa-award"></i>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-900 font-jua">수업 활동지 제출 완료</h3>
+      <p id="modalStudentInfo" class="text-base font-medium text-indigo-600 font-jua"></p>
+      <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+        <span class="text-xs text-gray-500 uppercase tracking-wider block font-semibold">형성평가 결과 점수</span>
+        <span id="modalScore" class="text-4xl font-extrabold text-indigo-600 font-jua">0</span>
+        <span class="text-lg font-bold text-gray-600 font-jua"> / 100점</span>
+      </div>
+      <p class="text-xs text-gray-500">수고하셨습니다! 제출된 내용과 점수는 선생님의 구글 시트에 안전하게 기록되었습니다.</p>
+      <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition font-jua text-lg">
+        확인 (닫기)
+      </button>
+    </div>
+  </div>
+
+
+  <script>
+    // 1. 학번 입력 시 자동 이름 조회
+    function fetchStudentName(studentId) {
+      const nameInput = document.getElementById('studentName');
+      const nameLoading = document.getElementById('nameLoading');
+
+
+      if (!studentId.trim()) {
+        nameInput.value = '';
+        return;
+      }
+
+
+      nameLoading.classList.remove('hidden');
+
+
+      google.script.run
+        .withSuccessHandler(function(name) {
+          nameLoading.classList.add('hidden');
+          if (name && name !== '명렬표 시트 없음') {
+            nameInput.value = name;
+          } else {
+            nameInput.value = '';
+            alert('등록되지 않은 학번입니다. 명렬표를 확인하거나 정확한 학번을 입력하세요.');
+          }
+        })
+        .withFailureHandler(function(err) {
+          nameLoading.classList.add('hidden');
+          console.error('이름 조회 실패:', err);
+        })
+        .findStudentName(studentId);
+    }
+
+
+    // 2. 폼 제출 처리
+    function handleFormSubmit(e) {
+      e.preventDefault();
+
+
+      const studentName = document.getElementById('studentName').value;
+      if (!studentName) {
+        alert('올바른 학번을 입력하여 이름 자동 조회를 먼저 완료해주세요.');
+        return;
+      }
+
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>제출 중입니다...</span>`;
+
+
+      // 폼 데이터 생성
+      const form = document.getElementById('activityForm');
+      const formData = {
+        studentId: form.studentId.value,
+        studentName: form.studentName.value,
+        act1: form.act1.value,
+        act2_1: form.act2_1.value,
+        act2_2: form.act2_2.value,
+        q1: form.q1.value,
+        q2: form.q2.value,
+        q3: form.q3.value,
+        reflection_learn: form.reflection_learn.value,
+        reflection_feel: form.reflection_feel.value,
+        reflection_act: form.reflection_act.value
+      };
+
+
+      // GAS 서버 함수 호출
+      google.script.run
+        .withSuccessHandler(function(response) {
+          if (response.success) {
+            // 커스텀 결과 모달 창 띄우기
+            document.getElementById('modalStudentInfo').innerText = `${formData.studentId} ${formData.studentName} 학생`;
+            document.getElementById('modalScore').innerText = response.score;
+            document.getElementById('resultModal').classList.remove('hidden');
+           
+            // 기존 폼 초기화
+            form.reset();
+          } else {
+            alert('오류 발생: ' + response.message);
+          }
+         
+          // 버튼 복구
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+          submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span>활동지 및 형성평가 제출하기</span>`;
+        })
+        .withFailureHandler(function(err) {
+          alert('제출 처리 중 오류가 발생했습니다: ' + err.message);
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+          submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span>활동지 및 형성평가 제출하기</span>`;
+        })
+        .submitData(formData);
+    }
+
+
+    // 모달 닫기
+    function closeModal() {
+      document.getElementById('resultModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
+
